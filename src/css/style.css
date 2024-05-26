@@ -1,0 +1,26 @@
+@import "~normalize.css";
+@import "fonts.css";
+
+body {
+  font-family: "Advent Pro";
+}
+
+h1 {
+  color: red;
+  text-align: center;
+  font-weight: 700;
+}
+
+.container {
+  padding: 20px 40px;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.logo {
+  background-image: url(../assets/logo.png);
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
