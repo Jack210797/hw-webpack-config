@@ -1,19 +1,19 @@
-const path = require("path")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
-const CopyWebpackPlugin = require("copy-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin")
-const TerserPlugin = require("terser-webpack-plugin")
-const EslintWebpackPlugin = require("eslint-webpack-plugin")
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const EslintWebpackPlugin = require('eslint-webpack-plugin');
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
 const optimization = () => {
   const config = {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
     },
     minimizer: [new CssMinimizerWebpackPlugin(), new TerserPlugin()],
   };
@@ -28,10 +28,10 @@ const cssLoaders = (extra) => {
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
-        publicPath: "",
+        publicPath: '',
       },
     },
-    "css-loader",
+    'css-loader',
   ];
   if (extra) {
     loaders.push(extra);
@@ -42,9 +42,9 @@ const cssLoaders = (extra) => {
 
 const jsLoaders = (extra) => {
   const loaders = {
-    loader: "babel-loader",
+    loader: 'babel-loader',
     options: {
-      presets: ["@babel/preset-env"],
+      presets: ['@babel/preset-env'],
     },
   };
 
@@ -56,22 +56,22 @@ const jsLoaders = (extra) => {
 const setPlugins = () => {
   const plugins = [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src/favicon.png"),
-          to: path.resolve(__dirname, "dist"),
+          from: path.resolve(__dirname, 'src/favicon.png'),
+          to: path.resolve(__dirname, 'dist'),
         },
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: filename("css"),
+      filename: filename('css'),
     }),
     new EslintWebpackPlugin({
-      extensions: ["js"],
+      extensions: ['js'],
       fix: true,
     }),
   ];
@@ -79,34 +79,34 @@ const setPlugins = () => {
 };
 
 module.exports = {
-  context: path.resolve(__dirname, "src"),
-  mode: "development",
+  context: path.resolve(__dirname, 'src'),
+  mode: 'development',
   entry: {
-    main: "./index.js",
-    static: "./statistics.ts",
+    main: './index.js',
+    static: './statistics.ts',
   },
-  target: "web",
+  target: 'web',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: filename("js"),
+    path: path.resolve(__dirname, 'dist'),
+    filename: filename('js'),
   },
   resolve: {
     extensions: [
-      ".js",
-      ".json",
-      ".png",
-      ".css",
-      ".xml",
-      ".csv",
-      ".ts",
-      ".tsx",
-      ".jsx",
+      '.js',
+      '.json',
+      '.png',
+      '.css',
+      '.xml',
+      '.csv',
+      '.ts',
+      '.tsx',
+      '.jsx',
     ],
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@model": path.resolve(__dirname, "src", "model"),
-      "@css": path.resolve(__dirname, "src", "css"),
-      "@assets": path.resolve(__dirname, "src", "assets"),
+      '@': path.resolve(__dirname, 'src'),
+      '@model': path.resolve(__dirname, 'src', 'model'),
+      '@css': path.resolve(__dirname, 'src', 'css'),
+      '@assets': path.resolve(__dirname, 'src', 'assets'),
     },
   },
   optimization: optimization(),
@@ -114,19 +114,19 @@ module.exports = {
     port: 4200,
     hot: false,
   },
-  devtool: isDev ? "source-map" : false,
+  devtool: isDev ? 'source-map' : false,
   plugins: setPlugins(),
   module: {
     rules: [
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: jsLoaders("@babel/preset-typescript"),
+        use: jsLoaders('@babel/preset-typescript'),
       },
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
-        use: jsLoaders("@babel/preset-react"),
+        use: jsLoaders('@babel/preset-react'),
       },
       {
         test: /\.js$/,
@@ -139,21 +139,21 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: cssLoaders("less-loader"),
+        use: cssLoaders('less-loader'),
       },
       {
         test: /\.s[ac]ss$/,
-        use: cssLoaders("sass-loader"),
+        use: cssLoaders('sass-loader'),
       },
       {
         test: /\.(png|jpg|jpeg|svg|gif|webp)$/,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "assets/fonts/[name].[hash][ext]",
+          filename: 'assets/fonts/[name].[hash][ext]',
         },
       },
     ],

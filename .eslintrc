@@ -37,6 +37,6 @@
   "browser": true
   },
   "extends": [
-  "eslint:recommended"
+    "eslint:recommended"
   ]
   }
